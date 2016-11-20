@@ -1,0 +1,30 @@
+<!doctype html>
+<script src="node_modules/vue/dist/vue.min.js"></script>
+<app>
+  <input v-model.number="x">
+  <input v-model.number="y">
+  <br>
+  {{ result }}
+  <br>
+  {{ lastUpdate }}
+</app>
+<script>
+  new Vue({
+    data () {
+      return {
+        x: 0,
+        y: 0
+      }
+    },
+    computed: {
+      result () {
+        return this.x + this.y
+      },
+      lastUpdate () {
+        this.x
+        this.y
+        return new Date()
+      }
+    }
+  }).$mount('app')
+</script>

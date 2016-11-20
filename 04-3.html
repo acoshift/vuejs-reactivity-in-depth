@@ -1,0 +1,45 @@
+<!doctype html>
+<script src="node_modules/vue/dist/vue.min.js"></script>
+<script src="node_modules/axios/dist/axios.min.js"></script>
+<app>
+  <button @click="fetch">Fetch Data</button>
+  <br>
+  <span v-if="loading">Loading...</span>
+  <ul>
+    <li v-for="x in state.list">{{ x }}</li>
+  </ul>
+</app>
+<script>
+  const state = {
+    list: []
+  }
+
+  const api = {
+    fetchList () {
+      axios.get('https://dinosaur-facts.firebaseio.com/dinosaurs.json')
+        .then((res) => {
+          state.list = res.data
+        })
+    }
+  }
+
+  new Vue({
+    data () {
+      return {
+        state,
+        loading: false
+      }
+    },
+    methods: {
+      fetch () {
+        this.loading = true
+        api.fetchList()
+      }
+    },
+    watch: {
+      'state.list' () {
+        this.loading = false
+      }
+    }
+  }).$mount('app')
+</script>

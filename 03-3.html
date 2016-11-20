@@ -1,0 +1,32 @@
+<!doctype html>
+<script src="node_modules/vue/dist/vue.min.js"></script>
+<script src="node_modules/moment/min/moment.min.js"></script>
+<app>{{ timestamp | fromNow }}</app>
+<script>
+  const ticker = new Vue({
+    data () {
+      return {
+        tick: 0
+      }
+    },
+    created () {
+      setInterval(() => {
+        this.tick = Date.now()
+      }, 1000)
+    }
+  })
+
+  Vue.filter('fromNow', (value) => {
+    ticker.tick
+    console.log('fromNow ' + Date.now())
+    return moment(value).fromNow()
+  })
+
+  new Vue({
+    data () {
+      return {
+        timestamp: Date.now()
+      }
+    }
+  }).$mount('app')
+</script>

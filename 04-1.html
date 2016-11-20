@@ -1,0 +1,23 @@
+<!doctype html>
+<script src="node_modules/vue/dist/vue.min.js"></script>
+<app>
+  <input v-model="name">
+</app>
+<result>Hello, {{ name }}</result>
+<script>
+  const state = {
+    name: ''
+  }
+
+  new Vue({
+    data () {
+      return state
+    }
+  }).$mount('app')
+
+  new Vue({
+    data () {
+      return state
+    }
+  }).$mount('result')
+</script>

@@ -1,0 +1,29 @@
+<!doctype html>
+<script src="node_modules/vue/dist/vue.min.js"></script>
+<script src="node_modules/moment/min/moment.min.js"></script>
+<app>
+  <span v-from-now="timestamp"></span>
+</app>
+<script>
+  Vue.directive('from-now', {
+    bind (el, binding) {
+      const update = () => {
+        console.log('update ' + Date.now())
+        el.innerHTML = moment(binding.value).fromNow()
+      }
+      update()
+      el.interval = setInterval(update, 1000)
+    },
+    unbind (el) {
+      clearInterval(el.interval)
+    }
+  })
+
+  new Vue({
+    data () {
+      return {
+        timestamp: Date.now()
+      }
+    }
+  }).$mount('app')
+</script>
